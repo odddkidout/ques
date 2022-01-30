@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Sheet Load</title>
+    <style>
+        #formdiv{
+            margin-top : 10%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="formdiv">
+        <form align="center" method="POST" action="/exam/ans-sheet/" enctype="multipart/form-data">
+            {{form.as_p}}
+            <input type="submit" value="Upload and Compare">
+        </form>
+    </div>
+</body>
+</html>

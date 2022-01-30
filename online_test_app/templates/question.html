@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Test</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <style>
+        li a{
+            color : blue;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md shadow">
+        <div class="container-fluid"><a class="navbar-brand" href="#">Exam</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a href='/exam/ans-sheet/'>Upload Answers</a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% for p in page_data %}
+    <p style="font-size: 12px;">Question : {{p.qNum}} 0f {{total_questions}}</p>
+    <div class="container">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h6>{{p.qNum}}. {{p.mainQ}}</h6>
+                    <p>{{p.subQuestion1}}</p>
+                    <p>{{p.subQuestion2}}</p>
+                    <p>{{p.subQuestion3}}</p>
+                    <p>{{p.subQuestion4}}</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="col text-start" id="options">
+            {%if p.selected_answer == p.ans1 %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="radio_btn" value="{{p.ans1}}" checked><label class="form-check-label" for="formCheck-2">{{p.ans1}}<br></label></div>
+            {% else %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="radio_btn" value="{{p.ans1}}"><label class="form-check-label" for="formCheck-2">{{p.ans1}}<br></label></div>
+            {% endif %}
+            {%if p.selected_answer == p.ans2 %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="radio_btn" value="{{p.ans2}}" checked><label class="form-check-label" for="formCheck-2">{{p.ans2}}<br></label></div>
+            {% else %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="radio_btn" value="{{p.ans2}}"><label class="form-check-label" for="formCheck-2">{{p.ans2}}<br></label></div>
+            {% endif %}
+            {%if p.selected_answer == p.ans3 %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3" name="radio_btn" value="{{p.ans3}}" checked><label class="form-check-label" for="formCheck-2">{{p.ans3}}<br></label></div>
+            {%else %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3" name="radio_btn" value="{{p.ans3}}"><label class="form-check-label" for="formCheck-2">{{p.ans3}}<br></label></div>
+            {% endif %}
+            {%if p.selected_answer == p.ans4 %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="radio_btn" value="{{p.ans4}}" checked><label class="form-check-label" for="formCheck-2">{{p.ans4}}<br></label></div>
+            {% else %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="radio_btn" value="{{p.ans4}}"><label class="form-check-label" for="formCheck-2">{{p.ans4}}<br></label></div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <section>
+        <div class="col">
+            <div id="divider"></div>
+            {% if page_object.has_previous %}
+            <a class="btn btn-primary" onClick='handl_request({{page_object.previous_page_number}},{{qNumber}});' role="button" id="prev_btn">Prev</a>
+            {% endif %}
+            {% if page_object.has_next %}
+            <a class="btn btn-primary text-start" onClick='handl_request({{page_object.next_page_number}},{{qNumber}});' role="button" id="next_btn">Next</a>
+            {% endif %}
+            <a class="btn btn-warning text-start" onClick='clear_selection({{current_page}},{{qNumber}});' role="button" id="submit">Clear</a>
+        </div>
+    </section>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/handle_request.js' %}"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>
